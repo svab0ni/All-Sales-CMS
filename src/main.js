@@ -3,8 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import ElementUI from 'element-ui'
+import Vuex from 'vuex'
+import store from '@/store/index'
 
 Vue.config.productionTip = false
+Vue.use(ElementUI)
+Vue.use(Vuex)
 
 export const API = 'http://localhost:8080'
 
@@ -12,6 +17,7 @@ export const API = 'http://localhost:8080'
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
