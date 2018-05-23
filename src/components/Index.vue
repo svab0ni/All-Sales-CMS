@@ -27,7 +27,7 @@ export default {
   watch: {
     authToken: function () {
       if (this.authToken != null) {
-        this.$router.push('Dashboard')
+        this.$router.push('dashboard')
       }
     }
   },
@@ -38,18 +38,13 @@ export default {
   },
   created () {
     if (this.authToken != null) {
-      api.testToken({}, {
-        headers: {
-          Authorization: `Bearer ${this.authToken}`,
-          'Content-Type': 'application/json'
-        }
-      }).then(function (response) {
-        this.$router.push('Dashboard')
+      api.testToken(this.authToken).then(function (response) {
+        this.$router.push('dashboard')
       }.bind(this)).catch(function (error) {
         if (error.response && error.response.status === 401) {
           this.$store.commit('setAuthToken', null)
         } else {
-          this.$router.push('Dashboard')
+          this.$router.push('dashboard')
         }
         this.loading = false
       }.bind(this))

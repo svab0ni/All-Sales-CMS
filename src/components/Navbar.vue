@@ -1,11 +1,6 @@
 <template>
   <div class="navbar" >
-    <el-menu @select="handleSelect"
-             :default-active="activeIndex" mode="horizontal"
-             background-color="#fff" text-color="rgb(76, 175, 80)"
-             active-text-color="rgb(76, 175, 80)">
-      <el-menu-item class="navbar-item" index="logout">Log out</el-menu-item>
-    </el-menu>
+      <div><a class="navbar-item" v-on:click.stop="redirectTo('logout')">Logout</a></div>
   </div>
 </template>
 
@@ -37,8 +32,9 @@ div.navbar {
   background-color: #fff;
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  height: 50px;
+  height: 60px;
 }
 .navbar-item {
   float: right;

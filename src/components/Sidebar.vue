@@ -2,9 +2,9 @@
   <div class="sidebar">
     <div class="sidebar-header"><h3>All Sales</h3></div>
     <div class="sidenav">
-      <div href="#">User</div>
-      <div href="#">Offer</div>
-      <div href="#">Cities</div>
+      <div><a class="sidebar-item" v-on:click.stop="redirectTo('users')">User</a></div>
+      <div><a class="sidebar-item" v-on:click.stop="redirectTo('offers')">Offer</a></div>
+      <div><a class="sidebar-item" v-on:click.stop="redirectTo('cities')">Cities</a></div>
     </div>
   </div>
 </template>
@@ -40,14 +40,14 @@ export default {
     })
   },
   methods: {
-    handleSelect: function (param) {
+    redirectTo: function (param) {
       this.$router.push('/dashboard/' + param)
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 .sidebar {
   min-height: 100vh;
   background-color: #fff;
@@ -64,24 +64,15 @@ export default {
   font-family: "Roboto", sans-serif;
   border-bottom: whitesmoke;
 }
-.sidebar-components {
-  margin-top: 50px;
-}
 .sidebar-item {
-  alignment: left;
-  font-family: "Roboto", sans-serif;
-}
-.sidebar-item-div {
-  color: red;
-  border-width: 2px;
-  border-color: blue;
-  border-style: solid;
-  border-left: none;
-  border-right: none;
-  margin-bottom: 10px;
-  padding: 15px;
-  display: inline-block;
-  width: inherit;
+  width: 100%;
+  display: block;
+  padding: 8px 16px;
+  text-align: left;
+  border: none;
+  white-space: normal;
+  float: none;
+  outline: 0;
 }
 .sidenav {
   height: 100%;

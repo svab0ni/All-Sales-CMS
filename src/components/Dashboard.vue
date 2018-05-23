@@ -1,25 +1,20 @@
 <template>
   <div>
-    <Navbar/>
-    <div>
-      <el-row>
-        <el-col :xs="3" :sm="3" :md="4" :lg="4" :xl="4">
-          <Sidebar />
-          <div style="display: inline-block; width: 100%"></div>
-        </el-col>
-        <el-col :xs="21" :sm="20" :md="20" :lg="18" :xl="18">
-          <div class="contentBox">
-            <transition name="fade">
-              <keep-alive>
-                <router-view />
-              </keep-alive>
-            </transition>
-          </div>
-        </el-col>
-        <el-col :xs="0" :sm="1" :md="0" :lg="2" :xl="2">
-        </el-col>
-      </el-row>
-    </div>
+    <el-header>
+      <Navbar />
+    </el-header>
+    <el-aside>
+      <Sidebar />
+    </el-aside>
+    <main>
+      <div class="content-div">
+        <transition>
+          <keep-alive>
+            <router-view />
+          </keep-alive>
+        </transition>
+      </div>
+    </main>
   </div>
 </template>
 
@@ -36,29 +31,21 @@ export default {
 }
 </script>
 
-<style scoped>
-  .logo {
-    background-color: #545c64;
-    color: lightgray;
-  }
-  .logo img {
-    border-radius: 50%;
-    max-width: 250px;
-    padding: 25px;
-  }
-  .contentBox {
-    padding: 18px;
-  }
-  .fade-enter-active, .fade-leave-active {
-    transition-property: opacity;
-    transition-duration: .25s;
+<style>
+  .content-div {
+    display: block;
+    position: inherit;
+    background-color: white;
+    width: 98%;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: hidden;
   }
 
-  .fade-enter-active {
-    transition-delay: .25s;
-  }
-
-  .fade-enter, .fade-leave-active {
-    opacity: 0
+  main {
+    width: 85%;
+    margin-left: 15%;
+    height: 100vh;
   }
 </style>
