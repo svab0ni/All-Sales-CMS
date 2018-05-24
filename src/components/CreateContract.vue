@@ -47,8 +47,10 @@ export default {
   },
   methods: {
     submit: function () {
-      api.createContract(this.authToken, this.contract)
-      this.$router.replace('/dashboard/contracts')
+      let vm = this
+      api.createContract(this.authToken, this.contract).then(function () {
+        vm.$router.replace('/dashboard/contracts')
+      })
     }
   }
 }

@@ -48,7 +48,7 @@
       <div class="input-field-wrapper">
         <label for="city">City</label>
         <template>
-          <el-select id="city" @change="handleCitySelect" placeholder="Select">
+          <el-select id="city" @change="handleCitySelect" v-model="offer.offerCity.name" placeholder="Select">
             <el-option
               v-for="item in cities"
               :key="item.id"
@@ -61,7 +61,7 @@
       <div class="input-field-wrapper">
         <label for="contract">Contract</label>
         <template>
-          <el-select id="city" @change="handleContractSelect" clearable placeholder="Select">
+          <el-select id="city" @change="handleContractSelect" v-model="offer.offerContract.name" clearable placeholder="Select">
             <el-option
               v-for="item in contracts"
               :key="item.id"
@@ -110,14 +110,19 @@ export default {
         'subtitle': '',
         'title': '',
         'shortDescription': '',
-        'offerCity': {},
-        'offerContract': {},
+        'offerCity': {
+          'name': ''
+        },
+        'offerContract': {
+          'name': ''
+        },
         'published': 0,
         'processed': 0
       },
       cities: [],
       contracts: [],
-      city: []
+      city: '',
+      contract: ''
     }
   },
   computed: {
@@ -145,8 +150,10 @@ export default {
       console.log(this.cities)
     },
     submit: function () {
-      api.createOffer(this.authToken, this.offer)
-      this.$router.replace('/dashboard/offers')
+      let vm = this
+      api.createOffer(this.authToken, this.offer).then(function () {
+        vm.$router.replace('/dashboard/offers')
+      })
     },
     handleCitySelect (val) {
       this.offer['offerCity'] = val

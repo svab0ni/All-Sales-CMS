@@ -74,10 +74,10 @@ export default {
   },
   methods: {
     submit: function () {
-      console.log(this.user)
+      let vm = this
       api.createUser(this.authToken, this.user).then(function (response) {
+        vm.$router.push('/dashboard/users')
       })
-      this.$router.push('/dashboard/users')
     }
   }
 }

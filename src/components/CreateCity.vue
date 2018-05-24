@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <div class="content-header">
-        <h3 class="content-header-title">Edit City</h3>
+        <h3 class="content-header-title">Create City</h3>
       </div>
     </el-row>
     <el-row class="input-group">
@@ -30,7 +30,7 @@
       </div>
     </el-row>
     <el-row class="input-group-button">
-      <el-button v-on:click="submit">Edit</el-button>
+      <el-button v-on:click="submit">Create</el-button>
     </el-row>
   </div>
 </template>
@@ -58,8 +58,11 @@ export default {
   },
   methods: {
     submit: function () {
+      let vm = this
       api.createCity(this.authToken, this.city)
-      this.$router.push('/dashboard/cities')
+        .then(function () {
+          vm.$router.push('/dashboard/cities')
+        })
     }
   }
 }

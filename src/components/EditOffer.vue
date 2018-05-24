@@ -48,7 +48,7 @@
       <div class="input-field-wrapper">
       <label for="city">City</label>
       <template>
-        <el-select id="city" @change="handleCitySelect" placeholder="Select">
+        <el-select id="city" @change="handleCitySelect" v-model="offer[0]['offerCity']['name']" placeholder="Select">
           <el-option
             v-for="item in cities"
             :key="item.id"
@@ -61,7 +61,7 @@
       <div class="input-field-wrapper">
         <label for="contract">Contract</label>
         <template>
-          <el-select id="city" @change="handleContractSelect" clearable placeholder="Select">
+          <el-select id="city" @change="handleContractSelect" v-model="offer[0]['offerContract']['name']" clearable placeholder="Select">
             <el-option
               v-for="item in contracts"
               :key="item.id"
@@ -108,7 +108,8 @@ export default {
       offer: [],
       cities: [],
       contracts: [],
-      city: []
+      city: '',
+      contract: ''
     }
   },
   computed: {

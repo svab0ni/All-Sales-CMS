@@ -75,7 +75,9 @@ export default {
   methods: {
     getCities () {
       let vm = this
+      this.tableData = []
       api.fetchCities().then(function (response) {
+        console.log(response)
         for (let i in response.data) {
           vm.tableData.push(response.data[i])
         }
@@ -124,7 +126,6 @@ export default {
 </script>
 
 <style>
-  @import url("//unpkg.com/element-ui@2.3.7/lib/theme-chalk/index.css");
   .add-new {
     float: left;
     margin-bottom: 20px;
