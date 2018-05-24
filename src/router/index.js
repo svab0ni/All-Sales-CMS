@@ -5,9 +5,15 @@ import Dashboard from '@/components/Dashboard'
 import Users from '@/components/Users'
 import EditUser from '@/components/EditUser'
 import CreateUser from '@/components/CreateUser'
-import Offer from '@/components/Offer'
+import Offers from '@/components/Offers'
 import EditOffer from '@/components/EditOffer'
 import CreateOffer from '@/components/CreateOffer'
+import Cities from '@/components/Cities'
+import EditCity from '@/components/EditCity'
+import CreateCity from '@/components/CreateCity'
+import Contracts from '@/components/Contracts'
+import EditContract from '@/components/EditContract'
+import CreateContract from '@/components/CreateContract'
 
 Vue.use(Router)
 
@@ -42,7 +48,7 @@ export default new Router({
         {
           path: 'offers',
           name: 'Offers',
-          component: Offer,
+          component: Offers,
           props: true
         },
         {
@@ -55,6 +61,42 @@ export default new Router({
           path: 'offers/create',
           name: 'CreateOffers',
           component: CreateOffer,
+          props: false
+        },
+        {
+          path: 'cities',
+          name: 'Cities',
+          component: Cities,
+          props: false
+        },
+        {
+          path: 'cities/:id/edit',
+          name: 'EditCities',
+          component: EditCity,
+          props: false
+        },
+        {
+          path: 'cities/create',
+          name: 'CreateCities',
+          component: CreateCity,
+          props: false
+        },
+        {
+          path: 'contracts',
+          name: 'Contracts',
+          component: Contracts,
+          props: false
+        },
+        {
+          path: 'contracts/:id/edit',
+          name: 'Contracts',
+          component: EditContract,
+          props: false
+        },
+        {
+          path: 'contracts/create',
+          name: 'Contracts',
+          component: CreateContract,
           props: false
         }
       ]

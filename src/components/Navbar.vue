@@ -1,6 +1,7 @@
 <template>
   <div class="navbar" >
-      <el-button class="navbar-item" v-on:click="handleLogout">Logout</el-button>
+    <a href="dashboard"><h3 style="float: left; margin-left: 20px; color: white;">All Sales CMS</h3></a>
+    <el-button class="navbar-item" style="margin-top: 10px; margin-right: 10px;" v-on:click="handleLogout">Logout</el-button>
   </div>
 </template>
 
@@ -31,12 +32,13 @@ li {
 }
 
 div.navbar {
-  background-color: #fff;
+  background-color: #23282E;
   position: fixed;
-  top: 0;
   left: 0;
   width: 100%;
   height: 60px;
+  display: block;
+  z-index:1;
 }
 .navbar-item {
   float: right;

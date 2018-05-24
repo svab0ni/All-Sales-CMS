@@ -2,22 +2,20 @@
   <div>
     <el-row>
       <div class="content-header">
-        <h3 class="content-header-title">Offers overview</h3>
+        <h3 class="content-header-title">Contracts overview</h3>
       </div>
     </el-row>
     <el-row>
-      <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewOffer()">Add new offer</el-button>
-      <el-input style="width: 150px; float: right; margin-right: 10px"
-        placeholder="Type something"
-        prefix-icon="el-icon-search"
-        v-model="query">
-      </el-input>
+      <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewContract()">Add new contract</el-button>
+      <input style="width: 150px; float: right; margin-right: 10px"
+             placeholder="Type something"
+             v-model="q" @keydown="handleFilter()">
     </el-row>
     <el-row style="text-align: center;">
       <div style="display: inline-block">
         <el-table
           :data="tableData"
-          style="width: 100%; font-family: 'Roboto', sans-serif; margin-left: 10px;">
+          style="width: 100%; font-family: 'Roboto', sans-serif; margin-left: 10px; display: inline-block;">
           <el-table-column :prop="col.prop" :label="col.label" header-align="center" width="180" style="font-family: 'Roboto', sans-serif;" v-for="col in columns" :key="col.prop"></el-table-column>
           <el-table-column width="180"
                            label="Operations" header-align="center">
@@ -42,9 +40,9 @@ import api from '@/api/api'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'offers',
+  name: 'contracts',
   mounted: function () {
-    this.getOffers()
+    this.getContracts()
   },
   data () {
     return {
@@ -55,19 +53,14 @@ export default {
           label: 'ID'
         },
         {
-          prop: 'title',
-          label: 'Title'
+          prop: 'email',
+          label: 'Email'
         },
         {
           prop: 'name',
           label: 'Name'
-        },
-        {
-          prop: 'offerUser.username',
-          label: 'Author'
         }
-      ],
-      query: ''
+      ]
     }
   },
   computed: {
@@ -76,22 +69,51 @@ export default {
     }))
   },
   methods: {
-    getOffers () {
+    getContracts () {
       let vm = this
-      api.fetchOffers(this.authToken).then(function (response) {
+      api.fetchContracts(this.authToken).then(function (response) {
         for (let i in response.data) {
           vm.tableData.push(response.data[i])
         }
       })
     },
     handleEdit (index, row) {
-      this.$router.push('/dashboard/offers/' + row.id + '/edit')
+      this.$router.push('/dashboard/contracts/' + row.id + '/edit')
     },
-    handleDelete () {
-      console.log('delete')
+    handleDelete (index, row) {
+      let vm = this
+      this.tableData = []
+      api.deleteContract(this.authToken, row.id).then(function () {
+        api.fetchContracts(vm.authToken).then(function (response) {
+          for (let i in response.data) {
+            vm.tableData.push(response.data[i])
+          }
+        })
+      })
     },
-    handleAddNewOffer () {
-      this.$router.push('/dashboard/offers/create')
+    handleAddNewContract () {
+      this.$router.push('/dashboard/contracts/create')
+    },
+    handleFilter () {
+      let vm = this
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(function () {
+        vm.tableData = []
+        if (vm.q !== '' && vm.q !== null) {
+          api.searchContracts(vm.authToken, vm.q).then(function (response) {
+            for (let i in response.data) {
+              vm.tableData.push(response.data[i])
+            }
+            console.log(vm.tableData)
+          })
+        } else {
+          api.fetchContracts(vm.authToken).then(function (response) {
+            for (let i in response.data) {
+              vm.tableData.push(response.data[i])
+            }
+          })
+        }
+      }, 1000)
     }
   }
 }

@@ -35,7 +35,6 @@ export default {
     position: inherit;
     background-color: white;
     width: 98%;
-    margin-top: 20px;
     margin-right: auto;
     margin-left: auto;
     overflow: hidden;
@@ -45,5 +44,6 @@ export default {
     width: 85%;
     margin-left: 15%;
     height: 100vh;
+    background-color: white;
   }
 </style>

@@ -2,11 +2,11 @@
   <div>
     <el-row>
       <div class="content-header">
-        <h3 class="content-header-title">Users overview</h3>
+        <h3 class="content-header-title">Cities overview</h3>
       </div>
     </el-row>
     <el-row>
-      <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewUser()">Add new user</el-button>
+      <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewCity()">Add new city</el-button>
       <input style="width: 150px; float: right; margin-right: 10px"
              placeholder="Type something"
              v-model="q" @keydown="handleFilter()">
@@ -16,9 +16,9 @@
         <el-table
           :data="tableData"
           style="width: 100%; font-family: 'Roboto', sans-serif; margin-left: 10px; display: inline-block;">
-            <el-table-column :prop="col.prop" :label="col.label" header-align="center" width="180" style="font-family: 'Roboto', sans-serif;" v-for="col in columns" :key="col.prop"></el-table-column>
+          <el-table-column :prop="col.prop" :label="col.label" header-align="center" width="180" style="font-family: 'Roboto', sans-serif;" v-for="col in columns" :key="col.prop"></el-table-column>
           <el-table-column width="180"
-            label="Operations" header-align="center">
+                           label="Operations" header-align="center">
             <template slot-scope="scope">
               <el-button
                 size="mini"
@@ -40,9 +40,9 @@ import api from '@/api/api'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'users',
+  name: 'cities',
   mounted: function () {
-    this.getUsers()
+    this.getCities()
   },
   data () {
     return {
@@ -53,16 +53,16 @@ export default {
           label: 'ID'
         },
         {
-          prop: 'firstname',
+          prop: 'name',
           label: 'Name'
         },
         {
-          prop: 'lastname',
-          label: 'Surname'
+          prop: 'acronym',
+          label: 'Acronym'
         },
         {
-          prop: 'email',
-          label: 'Email'
+          prop: 'zipcode',
+          label: 'Zipcode'
         }
       ]
     }
@@ -73,30 +73,30 @@ export default {
     }))
   },
   methods: {
-    getUsers () {
+    getCities () {
       let vm = this
-      api.fetchUsers(this.authToken).then(function (response) {
+      api.fetchCities().then(function (response) {
         for (let i in response.data) {
           vm.tableData.push(response.data[i])
         }
       })
     },
     handleEdit (index, row) {
-      this.$router.push('/dashboard/users/' + row.id + '/edit')
+      this.$router.push('/dashboard/cities/' + row.id + '/edit')
     },
     handleDelete (index, row) {
       let vm = this
       this.tableData = []
-      api.deleteUser(this.authToken, row.id).then(function () {
-        api.fetchUsers(vm.authToken).then(function (response) {
+      api.deleteCity(this.authToken, row.id).then(function () {
+        api.fetchCities().then(function (response) {
           for (let i in response.data) {
             vm.tableData.push(response.data[i])
           }
         })
       })
     },
-    handleAddNewUser () {
-      this.$router.push('/dashboard/users/create')
+    handleAddNewCity () {
+      this.$router.push('/dashboard/cities/create')
     },
     handleFilter () {
       let vm = this
@@ -104,14 +104,14 @@ export default {
       this.timeout = setTimeout(function () {
         vm.tableData = []
         if (vm.q !== '' && vm.q !== null) {
-          api.searchUsers(vm.q).then(function (response) {
+          api.searchCities(this.authToken, vm.q).then(function (response) {
             for (let i in response.data) {
               vm.tableData.push(response.data[i])
             }
             console.log(vm.tableData)
           })
         } else {
-          api.fetchUsers(vm.authToken).then(function (response) {
+          api.fetchCities().then(function (response) {
             for (let i in response.data) {
               vm.tableData.push(response.data[i])
             }

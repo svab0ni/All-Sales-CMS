@@ -12,7 +12,7 @@ export default {
 
 <style>
 html {
-  background-color: #67BD4A;
+  background-color: #23282E;
   font-family: "Roboto", sans-serif;
 }
 body {

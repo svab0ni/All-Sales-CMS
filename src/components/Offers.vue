@@ -1,24 +1,24 @@
 <template>
-  <div>
+  <div style="display: block;">
     <el-row>
       <div class="content-header">
-        <h3 class="content-header-title">Users overview</h3>
+        <h3 class="content-header-title">Offers overview</h3>
       </div>
     </el-row>
     <el-row>
-      <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewUser()">Add new user</el-button>
+      <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewOffer()">Add new offer</el-button>
       <input style="width: 150px; float: right; margin-right: 10px"
-             placeholder="Type something"
-             v-model="q" @keydown="handleFilter()">
+        placeholder="Type something"
+        v-model="q" @keydown="handleFilter()">
     </el-row>
     <el-row style="text-align: center;">
       <div style="display: inline-block">
-        <el-table
+        <el-table ref="offersTable"
           :data="tableData"
-          style="width: 100%; font-family: 'Roboto', sans-serif; margin-left: 10px; display: inline-block;">
-            <el-table-column :prop="col.prop" :label="col.label" header-align="center" width="180" style="font-family: 'Roboto', sans-serif;" v-for="col in columns" :key="col.prop"></el-table-column>
+          style="width: 100%; font-family: 'Roboto', sans-serif; margin-left: 10px;">
+          <el-table-column :prop="col.prop" :label="col.label" header-align="center" width="180" style="font-family: 'Roboto', sans-serif; display: block;" v-for="col in columns" :key="col.prop"></el-table-column>
           <el-table-column width="180"
-            label="Operations" header-align="center">
+                           label="Operations" header-align="center">
             <template slot-scope="scope">
               <el-button
                 size="mini"
@@ -40,9 +40,9 @@ import api from '@/api/api'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'users',
+  name: 'offers',
   mounted: function () {
-    this.getUsers()
+    this.getOffers()
   },
   data () {
     return {
@@ -53,18 +53,20 @@ export default {
           label: 'ID'
         },
         {
-          prop: 'firstname',
+          prop: 'title',
+          label: 'Title'
+        },
+        {
+          prop: 'name',
           label: 'Name'
         },
         {
-          prop: 'lastname',
-          label: 'Surname'
-        },
-        {
-          prop: 'email',
-          label: 'Email'
+          prop: 'offerUser.username',
+          label: 'Author'
         }
-      ]
+      ],
+      q: '',
+      timeout: null
     }
   },
   computed: {
@@ -73,30 +75,30 @@ export default {
     }))
   },
   methods: {
-    getUsers () {
+    getOffers () {
       let vm = this
-      api.fetchUsers(this.authToken).then(function (response) {
+      api.fetchOffers(this.authToken).then(function (response) {
         for (let i in response.data) {
           vm.tableData.push(response.data[i])
         }
       })
     },
     handleEdit (index, row) {
-      this.$router.push('/dashboard/users/' + row.id + '/edit')
+      this.$router.push('/dashboard/offers/' + row.id + '/edit')
     },
     handleDelete (index, row) {
       let vm = this
       this.tableData = []
-      api.deleteUser(this.authToken, row.id).then(function () {
-        api.fetchUsers(vm.authToken).then(function (response) {
+      api.deleteOffer(this.authToken, row.id).then(function () {
+        api.fetchOffers().then(function (response) {
           for (let i in response.data) {
             vm.tableData.push(response.data[i])
           }
         })
       })
     },
-    handleAddNewUser () {
-      this.$router.push('/dashboard/users/create')
+    handleAddNewOffer () {
+      this.$router.push('/dashboard/offers/create')
     },
     handleFilter () {
       let vm = this
@@ -104,14 +106,14 @@ export default {
       this.timeout = setTimeout(function () {
         vm.tableData = []
         if (vm.q !== '' && vm.q !== null) {
-          api.searchUsers(vm.q).then(function (response) {
+          api.searchOffers(this.authToken, vm.q).then(function (response) {
             for (let i in response.data) {
               vm.tableData.push(response.data[i])
             }
             console.log(vm.tableData)
           })
         } else {
-          api.fetchUsers(vm.authToken).then(function (response) {
+          api.fetchOffers().then(function (response) {
             for (let i in response.data) {
               vm.tableData.push(response.data[i])
             }
@@ -135,5 +137,6 @@ export default {
   }
   .content-header-title {
     float: left;
+    color: #23282E;
   }
 </style>

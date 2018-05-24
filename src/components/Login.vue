@@ -1,7 +1,7 @@
 <template>
   <div v-loading="loading" class="login-block">
     <div class="login-block-inner">
-      <h3 style="color: #4CAF50;!important; font-size: 28px; font-weight: 400!important;">All Sales CMS</h3>
+      <h3 style="color: #23282E;!important; font-size: 28px; font-weight: 400!important;">All Sales CMS</h3>
       <div class="login-input-div">
         <input class="login-input-field" type="text" v-model="username" id="username" placeholder="username">
       </div>
@@ -106,7 +106,7 @@ export default {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4CAF50;
+  background: #23282E;
   width: 100%;
   border: 0;
   padding: 15px;

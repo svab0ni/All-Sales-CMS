@@ -64,14 +64,20 @@ export default {
       }
     })
   },
-  async fetchOffers (authToken) {
+  async deleteUser (authToken, id) {
     return axios({
-      method: 'GET',
-      url: API + '/offers/index',
+      method: 'DELETE',
+      url: API + '/users/delete/' + id,
       headers: {
         'Authorization': 'Bearer ' + authToken,
         'Content-Type': 'application/json'
       }
+    })
+  },
+  async fetchOffers () {
+    return axios({
+      method: 'GET',
+      url: API + '/offers/index'
     })
   },
   async fetchOffer (authToken, id) {
@@ -106,10 +112,76 @@ export default {
       }
     })
   },
+  async searchOffers (authToken, q) {
+    return axios({
+      method: 'GET',
+      url: API + '/offers/search/' + q
+    })
+  },
+  async deleteOffer (authToken, id) {
+    return axios({
+      method: 'DELETE',
+      url: API + '/offers/delete/' + id,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   async fetchCities (authToken) {
     return axios({
       method: 'GET',
-      url: API + '/cities/index',
+      url: API + '/cities/index'
+    })
+  },
+  async fetchCity (authToken, id) {
+    return axios({
+      method: 'GET',
+      url: API + '/cities/find/' + id,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  async updateCity (authToken, data) {
+    return axios({
+      method: 'PUT',
+      url: API + '/cities/update/' + data['id'],
+      data: data,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  async searchUsers (q) {
+    return axios({
+      method: 'GET',
+      url: API + '/users/search/' + q
+    })
+  },
+  async createCity (authToken, data) {
+    return axios({
+      method: 'POST',
+      url: API + '/cities/create',
+      data: data,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  async searchCities (authToken, q) {
+    return axios({
+      method: 'GET',
+      url: API + '/cities/search/' + q
+    })
+  },
+  async deleteCity (authToken, id) {
+    return axios({
+      method: 'DELETE',
+      url: API + '/cities/delete/' + id,
       headers: {
         'Authorization': 'Bearer ' + authToken,
         'Content-Type': 'application/json'
@@ -125,5 +197,57 @@ export default {
         'Content-Type': 'application/json'
       }
     })
-  }
+  },
+  async fetchContract (authToken, id) {
+    return axios({
+      method: 'GET',
+      url: API + '/contracts/find/' + id,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  async updateContract (authToken, data) {
+    return axios({
+      method: 'PUT',
+      url: API + '/contracts/update/' + data['id'],
+      data: data,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  async createContract (authToken, data) {
+    return axios({
+      method: 'POST',
+      url: API + '/contracts/create',
+      data: data,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  async searchContracts (authToken, q) {
+    return axios({
+      method: 'GET',
+      url: API + '/contracts/search/' + q,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  async deleteContract (authToken, id) {
+    return axios({
+      method: 'DELETE',
+      url: API + '/contracts/delete/' + id,
+      headers: {
+        'Authorization': 'Bearer ' + authToken,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
 }
