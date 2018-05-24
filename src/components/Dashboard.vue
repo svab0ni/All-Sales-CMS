@@ -9,9 +9,7 @@
     <main>
       <div class="content-div">
         <transition>
-          <keep-alive>
-            <router-view />
-          </keep-alive>
+          <router-view />
         </transition>
       </div>
     </main>

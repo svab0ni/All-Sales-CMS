@@ -12,6 +12,12 @@
         </div>
         <el-input id="name" placeholder="Please input" v-model="offer[0]['name']"></el-input>
       </div>
+      <div class="input-field-wrapper">
+        <div class="label-container">
+          <label for="image">Image Url</label>
+        </div>
+        <el-input id="image" placeholder="Please input" v-model="offer[0]['imageUrl']"></el-input>
+      </div>
     </el-row>
 
     <el-row class="input-group">
@@ -42,12 +48,12 @@
       <div class="input-field-wrapper">
       <label for="city">City</label>
       <template>
-        <el-select id="city" v-model="offer[0]['offerCity']['name']" clearable placeholder="Select">
+        <el-select id="city" @change="handleCitySelect" placeholder="Select">
           <el-option
             v-for="item in cities"
             :key="item.id"
             :label="item.name"
-            :value="item.name">
+            :value="item">
           </el-option>
         </el-select>
       </template>
@@ -55,14 +61,28 @@
       <div class="input-field-wrapper">
         <label for="contract">Contract</label>
         <template>
-          <el-select id="contract" v-model="offer[0]['offerContract']['name']" clearable placeholder="Select">
+          <el-select id="city" @change="handleContractSelect" clearable placeholder="Select">
             <el-option
               v-for="item in contracts"
               :key="item.id"
               :label="item.name"
-              :value="item.name">
+              :value="item">
             </el-option>
           </el-select>
+        </template>
+      </div>
+    </el-row>
+    <el-row class="input-group">
+      <div class="input-field-wrapper">
+        <template>
+          <!-- `checked` should be true or false -->
+          <el-checkbox v-bind:checked="offer[0]['published']" v-model="offer[0]['published']">Published</el-checkbox>
+        </template>
+      </div>
+      <div class="input-field-wrapper">
+        <template>
+          <!-- `checked` should be true or false -->
+          <el-checkbox v-bind:checked="offer[0]['processed']" v-model="offer[0]['processed']">Processed</el-checkbox>
         </template>
       </div>
     </el-row>
@@ -87,7 +107,8 @@ export default {
     return {
       offer: [],
       cities: [],
-      contracts: []
+      contracts: [],
+      city: []
     }
   },
   computed: {
@@ -100,7 +121,7 @@ export default {
       let vm = this
       api.fetchOffer(this.authToken, this.$route.params.id).then(function (response) {
         vm.offer.push(response.data)
-        console.log(response.data)
+        console.log(vm.offer)
       })
     },
     getCities () {
@@ -124,6 +145,12 @@ export default {
     submit: function () {
       api.updateOffer(this.authToken, this.offer[0])
       this.$router.replace('/dashboard/offers')
+    },
+    handleCitySelect (val) {
+      this.offer[0]['offerCity'] = val
+    },
+    handleContractSelect (val) {
+      this.offer[0]['offerContract'] = val
     }
   }
 }

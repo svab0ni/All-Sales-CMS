@@ -79,9 +79,9 @@ export default {
   },
   async updateOffer (authToken, data) {
     return axios({
-      method: 'POST',
+      method: 'PUT',
       url: API + '/offers/update/' + data['id'],
-      body: data,
+      data: data,
       headers: {
         'Authorization': 'Bearer ' + authToken,
         'Content-Type': 'application/json'

@@ -7,6 +7,11 @@
     </el-row>
     <el-row>
       <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewOffer()">Add new offer</el-button>
+      <el-input style="width: 150px; float: right; margin-right: 10px"
+        placeholder="Type something"
+        prefix-icon="el-icon-search"
+        v-model="query">
+      </el-input>
     </el-row>
     <el-row style="text-align: center;">
       <div style="display: inline-block">
@@ -61,7 +66,8 @@ export default {
           prop: 'offerUser.username',
           label: 'Author'
         }
-      ]
+      ],
+      query: ''
     }
   },
   computed: {

@@ -45,7 +45,6 @@
 <script>
 import api from '@/api/api'
 import { mapGetters } from 'vuex'
-import axios from 'axios'
 
 export default {
   name: 'editUser',

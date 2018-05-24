@@ -7,6 +7,7 @@ import EditUser from '@/components/EditUser'
 import CreateUser from '@/components/CreateUser'
 import Offer from '@/components/Offer'
 import EditOffer from '@/components/EditOffer'
+import CreateOffer from '@/components/CreateOffer'
 
 Vue.use(Router)
 
@@ -48,7 +49,13 @@ export default new Router({
           path: 'offers/:id/edit',
           name: 'EditOffers',
           component: EditOffer,
-          props: true
+          props: false
+        },
+        {
+          path: 'offers/create',
+          name: 'CreateOffers',
+          component: CreateOffer,
+          props: false
         }
       ]
     }
