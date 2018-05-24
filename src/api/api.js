@@ -2,8 +2,15 @@ import axios from 'axios'
 import { API } from '@/main'
 
 export default {
-  async login (request) {
-    return axios.post(API + '/users/login', request)
+  async login (data) {
+    return axios({
+      method: 'POST',
+      url: API + '/users/login',
+      data: data,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   },
   async testToken (authToken) {
     return axios({

@@ -1,6 +1,6 @@
 <template>
   <div class="navbar" >
-      <div><a class="navbar-item" v-on:click.stop="redirectTo('logout')">Logout</a></div>
+      <el-button class="navbar-item" v-on:click="handleLogout">Logout</el-button>
   </div>
 </template>
 
@@ -16,8 +16,10 @@ export default {
     handleSelect (param) {
       this.$router.push('/dashboard/' + param)
     },
-    logout () {
-      console.log('log out')
+    handleLogout () {
+      let self = this
+      self.$store.commit('setAuthToken', null)
+      self.$router.push('/')
     }
   }
 }
@@ -38,6 +40,5 @@ div.navbar {
 }
 .navbar-item {
   float: right;
-  padding-left: 10px;
 }
 </style>
