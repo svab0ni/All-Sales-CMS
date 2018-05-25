@@ -7,9 +7,10 @@
     </el-row>
     <el-row>
       <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewCity()">Add new city</el-button>
-      <input style="width: 150px; float: right; margin-right: 10px"
+      <el-input style="width: 150px; float: right; margin-right: 10px"
              placeholder="Type something"
-             v-model="q" @keydown="handleFilter()">
+             v-model="q">
+      </el-input>
     </el-row>
     <el-row style="text-align: center;">
       <div style="display: inline-block">
@@ -44,6 +45,11 @@ export default {
   mounted: function () {
     this.getCities()
   },
+  watch: {
+    q: function () {
+      this.handleFilter()
+    }
+  },
   data () {
     return {
       tableData: [],
@@ -64,7 +70,8 @@ export default {
           prop: 'zipcode',
           label: 'Zipcode'
         }
-      ]
+      ],
+      q: ''
     }
   },
   computed: {

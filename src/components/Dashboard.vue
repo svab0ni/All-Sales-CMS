@@ -43,7 +43,7 @@ export default {
   main {
     width: 85%;
     margin-left: 15%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: white;
   }
 </style>

@@ -71,8 +71,9 @@ export default {
       })
     },
     submit: function () {
-      api.updateUser(this.authToken, this.user[0])
-      this.$router.replace('/dashboard/users')
+      api.updateUser(this.authToken, this.user[0]).then(function () {
+        this.$router.replace('/dashboard/users')
+      })
     }
   }
 }

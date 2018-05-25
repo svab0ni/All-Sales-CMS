@@ -19,7 +19,20 @@
         <el-input id="image" placeholder="Please input" v-model="offer[0]['imageUrl']"></el-input>
       </div>
     </el-row>
-
+    <el-row class="input-group">
+      <div class="input-field-wrapper">
+        <div class="label-container">
+          <label for="currentPrice">Current Price</label>
+        </div>
+        <el-input id="currentPrice" placeholder="Please input" v-model="offer[0]['currentPrice']"></el-input>
+      </div>
+      <div class="input-field-wrapper">
+        <div class="label-container">
+          <label for="previousPrice">Previous Price</label>
+        </div>
+        <el-input id="previousPrice" placeholder="Please input" v-model="offer[0]['previousPrice']"></el-input>
+      </div>
+    </el-row>
     <el-row class="input-group">
       <div class="big-input-field-wrapper">
         <div class="label-container">
@@ -144,8 +157,10 @@ export default {
       console.log(this.cities)
     },
     submit: function () {
-      api.updateOffer(this.authToken, this.offer[0])
-      this.$router.replace('/dashboard/offers')
+      let vm = this
+      api.updateOffer(this.authToken, this.offer[0]).then(function () {
+        vm.$router.replace('/dashboard/offers')
+      })
     },
     handleCitySelect (val) {
       this.offer[0]['offerCity'] = val

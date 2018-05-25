@@ -7,13 +7,14 @@
     </el-row>
     <el-row>
       <el-button plain class="add-new" style="font-family: 'Roboto', sans-serif; margin-left: 10px;" @click="handleAddNewOffer()">Add new offer</el-button>
-      <input style="width: 150px; float: right; margin-right: 10px"
+      <el-input style="width: 150px; float: right; margin-right: 10px;"
         placeholder="Type something"
-        v-model="q" @keydown="handleFilter()">
+        v-model="q">
+      </el-input>
     </el-row>
     <el-row style="text-align: center;">
       <div style="display: inline-block">
-        <el-table ref="offersTable"
+        <el-table
           :data="tableData"
           style="width: 100%; font-family: 'Roboto', sans-serif; margin-left: 10px;">
           <el-table-column :prop="col.prop" :label="col.label" header-align="center" width="180" style="font-family: 'Roboto', sans-serif; display: block;" v-for="col in columns" :key="col.prop"></el-table-column>
@@ -43,6 +44,11 @@ export default {
   name: 'offers',
   mounted: function () {
     this.getOffers()
+  },
+  watch: {
+    q: function () {
+      this.handleFilter()
+    }
   },
   data () {
     return {

@@ -54,8 +54,10 @@ export default {
       })
     },
     submit: function () {
-      api.updateContract(this.authToken, this.contract[0])
-      this.$router.replace('/dashboard/contracts')
+      let vm = this
+      api.updateContract(this.authToken, this.contract[0]).then(function () {
+        vm.$router.replace('/dashboard/cities')
+      })
     }
   }
 }

@@ -64,8 +64,10 @@ export default {
       })
     },
     submit: function () {
-      api.updateCity(this.authToken, this.city[0])
-      this.$router.replace('/dashboard/cities')
+      let vm = this
+      api.updateCity(this.authToken, this.city[0]).then(function () {
+        vm.$router.replace('/dashboard/cities')
+      })
     }
   }
 }

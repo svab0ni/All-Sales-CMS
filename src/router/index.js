@@ -14,6 +14,7 @@ import CreateCity from '@/components/CreateCity'
 import Contracts from '@/components/Contracts'
 import EditContract from '@/components/EditContract'
 import CreateContract from '@/components/CreateContract'
+import Home from '@/components/Home'
 
 Vue.use(Router)
 
@@ -27,6 +28,7 @@ export default new Router({
     {
       path: '/dashboard',
       component: Dashboard,
+      redirect: '/dashboard/home',
       children: [
         {
           path: 'users',
@@ -97,6 +99,12 @@ export default new Router({
           path: 'contracts/create',
           name: 'Contracts',
           component: CreateContract,
+          props: false
+        },
+        {
+          path: 'home',
+          name: 'Home',
+          component: Home,
           props: false
         }
       ]
